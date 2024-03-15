@@ -1,0 +1,16 @@
+NODE_ENV=production
+# NODE_ENV=development
+
+# DEV MODE MAILTRAP EMAIL VARIABLES
+DEV_EMAIL_HOST=smtp.mailtrap.io
+DEV_EMAIL_PORT=2525
+DEV_EMAIL_USERNAME=yourMailtrapServiceUsername
+DEV_EMAIL_PASSWORD=yourMailtrapServicePassword
+
+# PROD MODE MAILTRAP EMAIL VARIABLES
+PROD_EMAIL_HOST=live.smtp.mailtrap.io
+PROD_EMAIL_PORT=587
+PROD_EMAIL_USERNAME=api
+PROD_EMAIL_PASSWORD=yourMailtrapServicePassword
+
+EMAIL_FROM=youremail@domain.com
