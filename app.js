@@ -3,21 +3,31 @@ dotenv.config({ path: "./config.env" });
 
 const express = require("express");
 const app = express();
-const Email = require("./Services/email");
+const { Email } = require("./Services/email");
 
 app.post("/testemail", async (req, res, next) => {
   const user = {
     name: "Nishant S Vispute",
-    email: "nvispute@getbazzar.in",
+    // email: "nvispute@getbazzar.in",
+    email: ["nvispute@gmail.com", "nvispute@getbazzar.in"],
     // email: "any-gmail-address@gmail.com",
   };
   const url = `${req.protocol}://${req.get(
     "host"
   )}/resetPassword/tokenGoesHere`;
 
-  const result = await new Email.Email(user, url).SendTestEmail();
-  console.log("Logging The result in Controller: ");
-  console.log(result);
+  try {
+
+    const emailInstance = new Email(user, url);
+    
+    const result = await emailInstance.sendTestEmail();
+    if (result.response.split(" ")[0] === "250") {
+      console.log("Email sent successfully:");
+    }
+  } catch (error) {
+    // If there's an error sending the email
+    console.error("Error sending email:", error);
+  }
 
   res.status(200).json({
     status: "Success",
