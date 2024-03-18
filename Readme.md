@@ -17,10 +17,9 @@
 
 > CURRENT STATUS:
 >
-> > Testing
-> >
-> > > Working
->
-> > Sending
-> >
-> > > Working
+> > | Feature         |    status    |
+> > | --------------- | :----------: |
+> > | Email Testing   | [✔] Working  |
+> > | Email Sending   | [✔] Working  |
+> > | Email Category  | [✔] Working  |
+> > | Email Templates | [❌] Working |
