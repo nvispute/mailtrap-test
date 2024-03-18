@@ -1,8 +1,10 @@
 # Testing MailTrap.io
 
-# Please Read the Log.md for detailed local logs 
+# Please Read the Log.md for detailed Failed local logs
 
 ## This repo is created to Test the Mailtrap.io Email Sending service.
+
+---
 
 1. Please clone and run `npm install`
 2. Add `config.env` file in the root dir
@@ -11,3 +13,14 @@
 
 ### A sample `config.env` File is provided with the repo which is named `config.sample.txt`
 
+---
+
+> CURRENT STATUS:
+>
+> > Testing
+> >
+> > > Working
+>
+> > Sending
+> >
+> > > Working
