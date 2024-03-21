@@ -19,7 +19,6 @@ app.post("/testemail", async (req, res, next) => {
   try {
 
     const emailInstance = new Email(user, url);
-    
     const result = await emailInstance.sendTestEmail();
     if (result.response.split(" ")[0] === "250") {
       console.log("Email sent successfully:");

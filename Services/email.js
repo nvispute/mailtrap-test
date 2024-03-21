@@ -5,14 +5,23 @@ const util = require("util");
 
 class Email {
   constructor(user, url) {
+    //?  Log the initialization of the Email service
+    console.info("[INFO] Init Email Constructor");
+
     this.to = user.email;
     this.firstName = user.name.split(" ")[0];
     this.url = url;
     this.from = `No reply <${process.env.EMAIL_FROM}>`;
     this.transporter = this.createTransport();
+
+    //? Log the successful creation of the Email instance
+    console.info("[INFO] Email Service Initialized successfully.");
   }
 
   createTransport() {
+    //? Log the creation of the email transporter
+    console.info("[INFO] Creating Email Transporter...");
+
     const transporterOptions = {
       host:
         process.env.NODE_ENV === "production"
@@ -37,10 +46,17 @@ class Email {
       };
     }
 
+    //? Log the successful creation of the transporter
+    console.info("[INFO] Email Transporter Created successfully.");
     return nodemailer.createTransport(transporterOptions);
   }
   async send(template, subject, category) {
+    //? Log the start of email sending process
+    console.info("[INFO] Starting Email Sending Process...");
+
     try {
+      //? Log the Creating Email Template
+      console.info("[INFO] Creating Email Template...");
       const html = pug.renderFile(
         `${__dirname}/../Views/Emails/${template}.pug`,
         {
@@ -51,8 +67,12 @@ class Email {
         }
       );
 
+      //? Log the Converting Email HTML to Text
+      console.info("[INFO] Converting Email HTML to Text...");
       const emailText = convert(html);
 
+      //? Log the Configuring Email Sending Options
+      console.info("[INFO] Configuring Email Sending Options...");
       const mailOptions = {
         from: this.from,
         to: this.to,
@@ -67,10 +87,14 @@ class Email {
       const sendMail = util
         .promisify(this.transporter.sendMail)
         .bind(this.transporter);
-        
+
+      // Log the start of email sending process
+      console.log("[INFO] Sending Configured Email...");
+
       const result = await sendMail(mailOptions);
-      console.log("==== Response from sendMail ====");
-      console.log(result);
+
+      //? Log the response after sending the email
+      console.log("[INFO] Email Sent Successfully:", result);
 
       if (result.accepted.length > 0) {
         return result;
@@ -78,21 +102,28 @@ class Email {
         return false;
       }
     } catch (error) {
-      console.error("Error sending email:", error);
-      throw new Error("Error sending email");
+      //! Log any errors that occur during sending test email
+      console.error("[ERROR] Error sending email:", error);
+      throw new Error(error);
     }
   }
 
   async sendTestEmail() {
     try {
+      // Log the start of sending test email
+      console.log("[INFO] Sending Test Email...");
       const result = await this.send(
         "Test",
         "This is a Test Email.",
         "Test Category"
       );
+
+      // Log a success message after the test email is sent
+      console.log("[INFO] Test Email Sent Successfully:", result);
       return result;
     } catch (error) {
-      console.error("Error sending test email:", error);
+      // Log any errors that occur during sending test email
+      console.error("[ERROR] Error sending test email:", error);
       throw new Error("Error sending test email");
     }
   }
